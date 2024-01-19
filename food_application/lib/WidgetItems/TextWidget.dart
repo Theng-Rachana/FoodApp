@@ -9,7 +9,7 @@ class TextWidget extends StatelessWidget {
   TextWidget({super.key, 
     this.color = const Color.fromARGB(250,36, 39, 38), 
     required this.text, 
-    this.size = 20.0, 
+    this.size = 20.0,
     this.overFlow = TextOverflow.ellipsis
     });
 
@@ -22,7 +22,7 @@ class TextWidget extends StatelessWidget {
       softWrap: false,
       style: TextStyle(
         color: color,
-        fontSize: dimensionPage.font20,
+        fontSize: size,
         fontFamily: 'Roboto',
         fontWeight: FontWeight.w600,
       ),

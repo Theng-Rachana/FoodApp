@@ -19,6 +19,7 @@ class DiscriptionText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
+        backgroundColor: Colors.white,
         height: height,
         color: color,
         fontSize: size,
