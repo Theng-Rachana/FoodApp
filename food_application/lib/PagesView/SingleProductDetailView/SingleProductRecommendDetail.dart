@@ -1,26 +1,35 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_application/ColorsTheme/ColorsThemes.dart';
+import 'package:food_application/Controllers/ControProductRecommend.dart';
 import 'package:food_application/WidgetItems/BtnIconBar.dart';
 import 'package:food_application/WidgetItems/TextWidget.dart';
+import 'package:food_application/utils/ContantItems.dart';
 import 'package:food_application/utils/dimension.dart';
 import 'package:get/get.dart';
 
 import '../../WidgetItems/DiscriptionText.dart';
 
 class RecommendProductDetail extends StatelessWidget {
-  const RecommendProductDetail({super.key});
+  int pageId;
+  RecommendProductDetail({super.key, required this.pageId});
 
   @override
   Widget build(BuildContext context) {
+    var productRecommended = Get.find<ControProductRecommend>().ProductRecommendList[pageId];
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                BtnIconBar(icon: Icons.clear,),
+                GestureDetector(
+                    onTap: ()=>{
+                      Get.back(),
+                    },
+                    child: BtnIconBar(icon: Icons.clear,)),
                 BtnIconBar(icon: Icons.shopping_cart_outlined,),
               ],
             ),
@@ -33,15 +42,15 @@ class RecommendProductDetail extends StatelessWidget {
                 ),
                 width: double.maxFinite,
                 padding: const EdgeInsets.only(top: 10, bottom: 20),
-                child: Center(child: TextWidget(text: "Berger", size: dimensionPage.font26,)),
+                child: Center(child: TextWidget(text: productRecommended.name!, size: dimensionPage.font26,)),
               ),
             ),
             pinned: true,
             backgroundColor: Colors.white,
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
-                background: Image.asset(
-              "assets/images/food5.jpeg",
+                background: Image.network(
+              AppConstant.BASE_URL+'/uploads/'+productRecommended.img!,
               width: double.maxFinite,
               fit: BoxFit.cover,
             )),
@@ -50,7 +59,7 @@ class RecommendProductDetail extends StatelessWidget {
             child: Padding(
               padding:  EdgeInsets.only(left: dimensionPage.width10,right: dimensionPage.width10,),
               child: DiscriptionText(
-                text: 'A hamburger, or simply burger, is a food consisting offood consisting of food consisting of food consisting of  fillings—usually a patty of ground meat, typically beef—placed inside a sliced bun or bread roll. Hamburgers are often served with cheese, lettuce, tomato, onion, pickles, bacon, or chilis; condiments such as ketchup, mustard, mayonnaise, relish, or a "special sauce", often a variation of Thousand Island dressing; and are frequently placed on sesame seed buns. A hamburger patty topped with cheese is called a cheeseburger.[1]A hamburger, or simply burger, is a food consisting offood consisting of food consisting of food consisting of  fillings—usually a patty of ground meat, typically beef—placed inside a sliced bun or bread roll. Hamburgers are often served with cheese, lettuce, tomato, onion, pickles, bacon, or chilis; condiments such as ketchup, mustard, mayonnaise, relish, or a "special sauce", often a variation of Thousand Island dressing; and are frequently placed on sesame seed buns. A hamburger patty topped with cheese is called a cheeseburger.[1]A hamburger, or simply burger, is a food consisting offood consisting of food consisting of food consisting of  fillings—usually a patty of ground meat, typically beef—placed inside a sliced bun or bread roll. Hamburgers are often served with cheese, lettuce, tomato, onion, pickles, bacon, or chilis; condiments such as ketchup, mustard, mayonnaise, relish, or a "special sauce", often a variation of Thousand Island dressing; and are frequently placed on sesame seed buns. A hamburger patty topped with cheese is called a cheeseburger.[1]A hamburger, or simply burger, is a food consisting offood consisting of food consisting of food consisting of  fillings—usually a patty of ground meat, typically beef—placed inside a sliced bun or bread roll. Hamburgers are often served with cheese, lettuce, tomato, onion, pickles, bacon, or chilis; condiments such as ketchup, mustard, mayonnaise, relish, or a "special sauce", often a variation of Thousand Island dressing; and are frequently placed on sesame seed buns. A hamburger patty topped with cheese is called a cheeseburger.[1]A hamburger, or simply burger, is a food consisting offood consisting of food consisting of food consisting of  fillings—usually a patty of ground meat, typically beef—placed inside a sliced bun or bread roll. Hamburgers are often served with cheese, lettuce, tomato, onion, pickles, bacon, or chilis; condiments such as ketchup, mustard, mayonnaise, relish, or a "special sauce", often a variation of Thousand Island dressing; and are frequently placed on sesame seed buns. A hamburger patty topped with cheese is called a cheeseburger.[1]',
+                text: productRecommended.description!,
                 overFlow: TextOverflow.visible,
                 height: 1.8,
                 size: dimensionPage.font16,
@@ -69,7 +78,7 @@ class RecommendProductDetail extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 BtnIconBar(icon: Icons.remove,iconBackgroundColor: AppColors.Darkviolet,color: Colors.white,),
-                TextWidget(text: '\$12.00'+'X'+'0'),
+                TextWidget(text: '${productRecommended.price!}\$'+' X '+' 0'),
                 BtnIconBar(icon: Icons.add, iconBackgroundColor: AppColors.Darkviolet, color: Colors.white,),
               ],
             ),
@@ -99,7 +108,7 @@ class RecommendProductDetail extends StatelessWidget {
                     borderRadius: BorderRadius.circular(dimensionPage.radius10),
                   ),
                   child: Center(
-                      child: TextWidget(text: '10\$ | Add To Cart', color: AppColors.MainWhite,)
+                      child: DiscriptionText(text: ' Add To Cart', color: AppColors.MainWhite,)
                   ),
                 ),
               ],

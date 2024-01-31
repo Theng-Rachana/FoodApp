@@ -7,7 +7,9 @@ import 'TextWidget.dart';
 
 class SingleProductCard extends StatelessWidget {
   final String text;
-  const SingleProductCard({super.key, required this.text});
+  final int stars;
+  final String rating;
+  SingleProductCard({super.key, required this.text, required this.stars, required this.rating});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class SingleProductCard extends StatelessWidget {
           children: [
             Wrap(
               children: List.generate(
-                  5,
+                    stars!,
                       (index) => Icon(
                     Icons.star,
                     color: AppColors.Darkviolet,
@@ -32,7 +34,7 @@ class SingleProductCard extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            DiscriptionText(text: '4.5'),
+            DiscriptionText(text: rating),
             const SizedBox(
               width: 10,
             ),

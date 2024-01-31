@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_application/ColorsTheme/ColorsThemes.dart';
-import 'package:food_application/PagesView//HomePageView/HomePageBody.dart';
-import 'package:food_application/WidgetItems/CardItems.dart';
 import 'package:food_application/WidgetItems/DiscriptionText.dart';
 import 'package:food_application/WidgetItems/TextWidget.dart';
+import 'package:food_application/utils/ContantItems.dart';
 import 'package:food_application/utils/dimension.dart';
 
 import 'HomePageBody.dart';
@@ -35,7 +34,7 @@ class _HomePageViewState extends State<HomePageView> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextWidget(text: 'Tos-Nham', color: AppColors.Darkviolet,),
+                    TextWidget(text: AppConstant.APP_NAME, color: AppColors.Darkviolet,),
                     Row(
                       children: [
                         DiscriptionText(text: 'city', color: AppColors.SecondaryDark,),
@@ -57,10 +56,10 @@ class _HomePageViewState extends State<HomePageView> {
             ),
             ),
           // body
-          Expanded(
+          const Expanded(
             flex: 1,
               child: SingleChildScrollView(
-                child: const HomePageBody(),
+                child:  HomePageBody(),
               )),
         ],
       ),
