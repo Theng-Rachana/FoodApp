@@ -22,7 +22,7 @@ class SingleProductDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var products = Get.find<ControProduct>().productList[pageId];
-
+    Get.find<ControProduct>().initProduct();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
