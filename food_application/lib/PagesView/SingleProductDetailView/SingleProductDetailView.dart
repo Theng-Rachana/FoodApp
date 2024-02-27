@@ -1,7 +1,9 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:food_application/Controllers/ControCart.dart';
 import 'package:food_application/Controllers/ControProduct.dart';
+import 'package:food_application/Data/repository/RepoCart.dart';
 import 'package:food_application/WidgetItems/BtnIconBar.dart';
 import 'package:food_application/WidgetItems/DiscriptionText.dart';
 import 'package:food_application/WidgetItems/ExtantableTextWidget.dart';
@@ -15,14 +17,15 @@ import '../../WidgetItems/TextWidget.dart';
 class SingleProductDetailPage extends StatelessWidget {
   int pageId;
 
-  SingleProductDetailPage({super.key,
-    required this.pageId
-  });
+  SingleProductDetailPage({Key? key, required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var products = Get.find<ControProduct>().productList[pageId];
-    Get.find<ControProduct>().initProduct();
+    Get.put(RepoCart()); // Initialize ControCart
+    Get.put(ControCart(repoCart: Get.find())); // Initialize ControCart
+    Get.find<ControProduct>().initProduct(Get.find<ControCart>());
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -128,7 +131,7 @@ class SingleProductDetailPage extends StatelessWidget {
                   children: [
                     GestureDetector(
                         onTap: () => {
-                            popularProduct.setDecrease(),
+                          popularProduct.setDecrease(),
                         },
                         child: const Icon(Icons.remove)),
                     SizedBox(
@@ -144,7 +147,7 @@ class SingleProductDetailPage extends StatelessWidget {
                     ),
                     GestureDetector(
                         onTap: () => {
-                            popularProduct.setIncrease(),
+                          popularProduct.setIncrease(),
                         },
                         child: const Icon(Icons.add))
                   ],
@@ -153,19 +156,22 @@ class SingleProductDetailPage extends StatelessWidget {
               SizedBox(
                 width: dimensionPage.width10,
               ),
-              Container(
-                height: dimensionPage.bottonBarHeight - 20,
-                padding: EdgeInsets.only(
-                    left: dimensionPage.width45, right: dimensionPage.width45),
-                decoration: BoxDecoration(
-                  color: AppColors.Darkviolet,
-                  borderRadius: BorderRadius.circular(dimensionPage.radius10),
+              InkWell(
+                onTap: ,
+                child: Container(
+                  height: dimensionPage.bottonBarHeight - 20,
+                  padding: EdgeInsets.only(
+                      left: dimensionPage.width45, right: dimensionPage.width45),
+                  decoration: BoxDecoration(
+                    color: AppColors.Darkviolet,
+                    borderRadius: BorderRadius.circular(dimensionPage.radius10),
+                  ),
+                  child: Center(
+                      child: DiscriptionText(
+                        text: '${products.price!}\$ | Add To Cart',
+                        color: AppColors.MainWhite,
+                      )),
                 ),
-                child: Center(
-                    child: DiscriptionText(
-                      text: '${products.price!}\$ | Add To Cart',
-                      color: AppColors.MainWhite,
-                    )),
               ),
             ],
           ),
