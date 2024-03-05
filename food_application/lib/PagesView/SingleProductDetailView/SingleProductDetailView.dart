@@ -22,10 +22,9 @@ class SingleProductDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var products = Get.find<ControProduct>().productList[pageId];
-    Get.put(RepoCart()); // Initialize ControCart
-    Get.put(ControCart(repoCart: Get.find())); // Initialize ControCart
-    Get.find<ControProduct>().initProduct(Get.find<ControCart>());
-
+    // Get.lazyPut(() => RepoCart());
+    // Get.lazyPut(() => ControCart(repoCart: Get.find()));
+    Get.find<ControProduct>().initProduct(products, Get.find<ControCart>());
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -138,7 +137,7 @@ class SingleProductDetailPage extends StatelessWidget {
                       width: dimensionPage.width15,
                     ),
                     TextWidget(
-                      text: popularProduct.quantity.toString(),
+                      text: popularProduct.inCardItem.toString(),
                       size: dimensionPage.font26,
                       color: AppColors.Darkviolet,
                     ),
@@ -156,8 +155,10 @@ class SingleProductDetailPage extends StatelessWidget {
               SizedBox(
                 width: dimensionPage.width10,
               ),
-              InkWell(
-                onTap: ,
+              GestureDetector(
+                onTap: (){
+                  popularProduct.addItem(products);
+                },
                 child: Container(
                   height: dimensionPage.bottonBarHeight - 20,
                   padding: EdgeInsets.only(
