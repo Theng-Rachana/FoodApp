@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:food_application/Data/repository/RepoCart.dart';
 import 'package:food_application/Models/ProductsModel.dart';
 import 'package:food_application/Models/cartModel.dart';
@@ -38,6 +39,7 @@ class ControCart extends GetxController{
       update();
     }
   }
+
   bool existInCart(ProductsModel product){
     if(_items.containsKey(product.id)){
       return true;
@@ -56,4 +58,12 @@ class ControCart extends GetxController{
     }
     return quantity;
   }
+
+ int get totalItems{
+    var toalQuantity = 0;
+    _items.forEach((key, value) {
+      toalQuantity = toalQuantity + value.quantity!;
+    });
+    return toalQuantity;
+ }
 }

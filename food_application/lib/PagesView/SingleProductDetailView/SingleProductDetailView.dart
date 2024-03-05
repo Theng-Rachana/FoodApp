@@ -38,7 +38,8 @@ class SingleProductDetailPage extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: NetworkImage(AppConstant.BASE_URL+'/uploads/'+products.img!),
+                  image: NetworkImage(
+                      AppConstant.BASE_URL + '/uploads/' + products.img!),
                 ),
               ),
             ),
@@ -59,10 +60,22 @@ class SingleProductDetailPage extends StatelessWidget {
                     iconSize: dimensionPage.iconSize16,
                   ),
                 ),
-                BtnIconBar(
-                  icon: Icons.shopping_cart,
-                  iconSize: dimensionPage.iconSize16,
-                ),
+                GetBuilder<ControProduct>(builder: (controller) {
+                  return Stack(children: [
+                    BtnIconBar(
+                      icon: Icons.shopping_cart,
+                      iconSize: dimensionPage.iconSize16,
+                    ),
+                    Get.find<ControProduct>().totalItems >= 1
+                        ? BtnIconBar(
+                            icon: Icons.circle,
+                            size: 20,
+                            color: AppColors.MainWhite,
+                            iconBackgroundColor: AppColors.Darkviolet,
+                          )
+                        : Container()
+                  ]);
+                })
               ],
             ),
           ),
@@ -99,14 +112,14 @@ class SingleProductDetailPage extends StatelessWidget {
                   Expanded(
                       child: SingleChildScrollView(
                           child: ExtandableTextWidget(
-                              text:products.description!))),
+                              text: products.description!))),
                 ],
               ),
             ),
           ),
         ],
       ),
-      bottomNavigationBar: GetBuilder<ControProduct>(builder: (popularProduct){
+      bottomNavigationBar: GetBuilder<ControProduct>(builder: (popularProduct) {
         return Container(
           height: dimensionPage.bottonBarHeight,
           padding: EdgeInsets.only(
@@ -123,15 +136,16 @@ class SingleProductDetailPage extends StatelessWidget {
                 height: dimensionPage.bottonBarHeight - 40,
                 decoration: BoxDecoration(
                     color: AppColors.LightShadowColor,
-                    borderRadius: BorderRadius.circular(dimensionPage.radius10)),
+                    borderRadius:
+                        BorderRadius.circular(dimensionPage.radius10)),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
                         onTap: () => {
-                          popularProduct.setDecrease(),
-                        },
+                              popularProduct.setQuantity(false),
+                            },
                         child: const Icon(Icons.remove)),
                     SizedBox(
                       width: dimensionPage.width15,
@@ -146,8 +160,8 @@ class SingleProductDetailPage extends StatelessWidget {
                     ),
                     GestureDetector(
                         onTap: () => {
-                          popularProduct.setIncrease(),
-                        },
+                              popularProduct.setQuantity(true),
+                            },
                         child: const Icon(Icons.add))
                   ],
                 ),
@@ -156,29 +170,29 @@ class SingleProductDetailPage extends StatelessWidget {
                 width: dimensionPage.width10,
               ),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   popularProduct.addItem(products);
                 },
                 child: Container(
                   height: dimensionPage.bottonBarHeight - 20,
                   padding: EdgeInsets.only(
-                      left: dimensionPage.width45, right: dimensionPage.width45),
+                      left: dimensionPage.width45,
+                      right: dimensionPage.width45),
                   decoration: BoxDecoration(
                     color: AppColors.Darkviolet,
                     borderRadius: BorderRadius.circular(dimensionPage.radius10),
                   ),
                   child: Center(
                       child: DiscriptionText(
-                        text: '${products.price!}\$ | Add To Cart',
-                        color: AppColors.MainWhite,
-                      )),
+                    text: '${products.price!}\$ | Add To Cart',
+                    color: AppColors.MainWhite,
+                  )),
                 ),
               ),
             ],
           ),
         );
-      }
-      ),
+      }),
     );
   }
 }
