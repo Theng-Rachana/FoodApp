@@ -13,6 +13,7 @@ import 'package:food_application/utils/dimension.dart';
 import 'package:get/get.dart';
 import '../../ColorsTheme/ColorsThemes.dart';
 import '../../WidgetItems/TextWidget.dart';
+import '../Cart/CartPage.dart';
 
 class SingleProductDetailPage extends StatelessWidget {
   int pageId;
@@ -62,17 +63,37 @@ class SingleProductDetailPage extends StatelessWidget {
                 ),
                 GetBuilder<ControProduct>(builder: (controller) {
                   return Stack(children: [
-                    BtnIconBar(
-                      icon: Icons.shopping_cart,
-                      iconSize: dimensionPage.iconSize16,
+                    GestureDetector(
+                      onTap: () => {
+                        Get.to(() => const CartPage()),
+                      },
+                      child: BtnIconBar(
+                        icon: Icons.shopping_cart,
+                        iconSize: dimensionPage.iconSize16,
+                      ),
                     ),
                     Get.find<ControProduct>().totalItems >= 1
-                        ? BtnIconBar(
-                            icon: Icons.circle,
-                            size: 20,
-                            color: AppColors.MainWhite,
-                            iconBackgroundColor: AppColors.Darkviolet,
+                        ? Positioned(
+                            right: 0,
+                            top: 0,
+                            child: BtnIconBar(
+                              icon: Icons.circle,
+                              size: 20,
+                              color: Colors.red,
+                              iconBackgroundColor: Colors.red,
+                            ),
                           )
+                        : Container(),
+                    Get.find<ControProduct>().totalItems >= 1
+                        ? Positioned(
+                      right: 2.5,
+                      top: 3,
+                      child: TextWidget(
+                        text: Get.find<ControProduct>().totalItems.toString(),
+                        size: 12,
+                        color: Colors.white,
+                      )
+                    )
                         : Container()
                   ]);
                 })

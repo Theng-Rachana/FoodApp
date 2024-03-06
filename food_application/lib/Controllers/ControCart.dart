@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:food_application/Data/repository/RepoCart.dart';
 import 'package:food_application/Models/ProductsModel.dart';
 import 'package:food_application/Models/cartModel.dart';
@@ -65,5 +64,9 @@ class ControCart extends GetxController{
       toalQuantity = toalQuantity + value.quantity!;
     });
     return toalQuantity;
+ }
+
+ List<cartModel> get getItems{
+   return _items.entries.map((e) => e.value).toList();
  }
 }

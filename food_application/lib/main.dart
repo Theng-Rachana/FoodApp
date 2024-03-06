@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_application/Controllers/ControProduct.dart';
 import 'package:food_application/Controllers/ControProductRecommend.dart';
 import 'package:food_application/PagesView//HomePageView/HomePageVeiw.dart';
+import 'package:food_application/PagesView/Cart/CartPage.dart';
 import 'package:food_application/PagesView/SingleProductDetailView/SingleProductDetailView.dart';
 import 'package:food_application/PagesView/SingleProductDetailView/SingleProductRecommendDetail.dart';
 import 'package:food_application/Routes/RoutesHelper.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
       getPages: Routes.pages,
       // home: SingleProductDetailPage(),
       // home: RecommendProductDetail(),
+      // home: CartPage(),
     );
   }
 }

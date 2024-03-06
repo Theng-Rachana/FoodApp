@@ -3,7 +3,9 @@ import 'package:food_application/ColorsTheme/ColorsThemes.dart';
 import 'package:food_application/Controllers/ControCart.dart';
 import 'package:food_application/Data/repository/RepoProduct.dart';
 import 'package:food_application/Models/ProductsModel.dart';
+import 'package:food_application/Models/cartModel.dart';
 import 'package:get/get.dart';
+
 
 class ControProduct extends GetxController{
   final RepoProduct repoProduct;
@@ -62,22 +64,25 @@ class ControProduct extends GetxController{
   }
 
   int checkQuantity(int quantity){
-    if(_inCardItems + quantity<0){
-            Get.snackbar('item count', "you can`t order 0 items",
-              backgroundColor: AppColors.MainWhite,
-              colorText: Colors.black,);
+    if (_inCardItems + quantity < 0) {
+      Get.snackbar('Item count', "You can't order 0 items",
+        backgroundColor: AppColors.MainWhite,
+        colorText: Colors.black,
+      );
       return 0;
     }
-    else if(_inCardItems + quantity>20){
-      Get.snackbar('item count', "you can`t order more than 20 items",
+    else if (_inCardItems + quantity > 20) {
+      Get.snackbar('Item count', "You can't order more than 20 items",
         backgroundColor: AppColors.MainWhite,
-        colorText: Colors.black,);
+        colorText: Colors.black,
+      );
       return 20;
     }
-    else{
+    else {
       return quantity;
     }
   }
+
 
   void initProduct(ProductsModel product, ControCart cart){
     _quantity = 0;
@@ -108,9 +113,14 @@ class ControProduct extends GetxController{
       );
     }
 
+    update();
   }
 
   int get totalItems{
     return _cart.totalItems;
+  }
+
+  List<cartModel> get getItems{
+    return _cart.getItems;
   }
 }
